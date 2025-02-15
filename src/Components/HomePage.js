@@ -4,6 +4,7 @@ import ImageCarousel from './ImageCarousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCountriesData, clearData } from '../utils/countriesSlice';
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
+import OnScreenLoader from './OnScreenLoader';
 import image1 from "../hamburger.png";
 
 const HomePage = () => {
@@ -15,6 +16,13 @@ const HomePage = () => {
     const [showLoadMoreOption, setShowLoadMoreOption] = useState(true);
     const [openHamburger, setOpenHamburger] = useState(false);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 500);
+    }, [showLoadMoreOption]);
 
     const handleLoadMoreClick = () => {
         const indexOfLastCard = 12 * loadMoreClickCount;
@@ -69,6 +77,9 @@ const HomePage = () => {
     }, [activeTab]);
 
     return (
+        <div>
+        {isLoading ?
+            (<OnScreenLoader />) : (
         <div className='mx-3'>
             {/* Navbar */}
             <div className='d-flex justify-content-between align-items-center p-3 navBar'>
@@ -147,8 +158,9 @@ const HomePage = () => {
                 <div onClick={() => handleTabClick('Europe')}>Europe</div>
             </div>}
         </div>
-
-    );
+    )}
+    </div>
+    )
 }
 
 export default HomePage;
