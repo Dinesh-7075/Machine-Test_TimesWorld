@@ -123,7 +123,7 @@ const HomePage = () => {
 
             {/* Country Cards */}
 
-            <div className="container">
+            <div className="container countries-container">
                 {coutriesData && coutriesData?.map((item, index) => (
                     <div className="card d-flex flex-row" key={index}>
                         <div className="flag-placeholder">
